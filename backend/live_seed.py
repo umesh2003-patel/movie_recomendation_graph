@@ -32,6 +32,7 @@ def get_tmdb_data(endpoint, params=None):
     return response.json()
 
 def load_live_data(driver):
+    print("📡 Fetching real-time genre list from TMDB...")
     print("[...] Fetching real-time genre list from TMDB...")
     genres_data = get_tmdb_data("genre/movie/list")
     genre_mapping = {g['id']: g['name'] for g in genres_data['genres']}
@@ -44,6 +45,7 @@ def load_live_data(driver):
     movie_genres = {}
 
     for page in range(1, PAGES_TO_FETCH + 1):
+        print(f"📡 Fetching popular movies (Page {page})...")
         print(f"[...] Fetching popular movies (Page {page})...")
         popular = get_tmdb_data("movie/popular", {"page": page})
         
@@ -64,6 +66,7 @@ def load_live_data(driver):
                 movie_genres[movie_title] = m_genres
             
             # Fetch Cast & Crew for this movie
+            print(f"   ↳ Fetching cast & crew for: {movie_title}")
             print(f"   -> Fetching cast & crew for: {movie_title}")
             credits = get_tmdb_data(f"movie/{m['id']}/credits")
             
@@ -84,6 +87,8 @@ def load_live_data(driver):
             time.sleep(0.1)
 
     print("\n---------------------------------------------------")
+    print(f"📊 Fetched {len(movies)} movies, {len(actors)} actors, {len(directors)} directors.")
+    print("🔌 Pushing to CognoDB Graph Database...")
     print(f"[INFO] Fetched {len(movies)} movies, {len(actors)} actors, {len(directors)} directors.")
     print("[...] Pushing to CognoDB Graph Database...")
     
