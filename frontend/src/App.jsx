@@ -43,7 +43,7 @@ function Footer() {
   return (
     <footer className="border-t border-gray-800 mt-20 py-8 text-center text-gray-600 text-sm">
       <p>
-        CineGraph — Built for Wexa AI Assignment •{" "}
+        CineGraph •{" "}
         <span className="text-[#e94560]">CognoDB</span> Graph Database
       </p>
       <p className="mt-1 text-xs text-gray-700">
